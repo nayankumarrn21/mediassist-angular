@@ -1,0 +1,46 @@
+<div class="main-container">
+  <div class="center-container">
+    <mat-card class="container">
+      <form class="example-form">
+        <mat-toolbar color="primary" class="container-header">
+          <p>
+            Medi-Assists
+            <mat-icon
+              aria-hidden="true"
+              aria-label="Example home icon"
+              fontIcon="vaccines"
+            ></mat-icon>
+          </p>
+        </mat-toolbar>
+        <mat-form-field class="example-full-width">
+          <mat-label>User Name</mat-label>
+          <input
+            matInput
+            placeholder="Enter the Username"
+            [(ngModel)]="username"
+            name="username"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            type="password"
+            placeholder="Enter the Password"
+            [(ngModel)]="password"
+            name="password"
+          />
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          style="width: 100%"
+          (click)="login()"
+        >
+          Login
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</div>

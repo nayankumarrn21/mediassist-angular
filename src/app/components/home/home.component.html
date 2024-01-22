@@ -1,0 +1,16 @@
+<div style="display: flex; flex-wrap: wrap">
+  <app-policies
+    *ngFor="let policy of policyList"
+    [policy]="policy"
+  ></app-policies>
+
+  <button
+    mat-fab
+    color="primary"
+    aria-label="Example icon button with a delete icon"
+    style="position: fixed; right: 5vh; bottom: 5vh"
+    (click)="addPolicy()"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

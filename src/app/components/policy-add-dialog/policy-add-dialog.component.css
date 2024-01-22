@@ -1,0 +1,18 @@
+.example-form {
+  min-width: 100px;
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.div-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.example-full-width {
+  width: 40%;
+  margin-left: 2px;
+  margin-right: 2px;
+}

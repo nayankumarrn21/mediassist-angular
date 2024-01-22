@@ -1,0 +1,23 @@
+<mat-card class="example-card">
+  <mat-card-header style="height: 10vh">
+    <mat-card-title style="font-size: medium">{{
+      policy.title
+    }}</mat-card-title>
+    <mat-card-subtitle>{{ policy.companyName }}</mat-card-subtitle>
+  </mat-card-header>
+  <img
+    mat-card-image
+    [src]="randomImage"
+    alt="Photo of a Shiba Inu"
+    style="height: 20vh"
+  />
+  <mat-card-content style="height: 15vh">
+    <p class="truncated-card">
+      {{ policy.description }}
+    </p>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-button (click)="openPolicyDialog()">View Policy</button>
+  </mat-card-actions>
+</mat-card>

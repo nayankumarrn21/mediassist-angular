@@ -1,0 +1,14 @@
+.example-container {
+  height: 100%;
+}
+
+.example-sidenav-content {
+  width: 100%;
+  min-height: 100vh;
+  max-height: 1000px;
+  margin: 1vh;
+}
+
+.example-sidenav {
+  width: 170px;
+}
