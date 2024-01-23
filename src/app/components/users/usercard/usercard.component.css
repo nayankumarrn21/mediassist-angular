@@ -1,0 +1,56 @@
+/* user-list.component.css */
+.user-card {
+  width: 600px;
+  margin: 16px;
+}
+
+.user-avatar {
+  background-color: #ccc;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.user-info {
+  margin-left: 16px;
+}
+
+.user-name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.user-username {
+  font-size: 16px;
+  color: #555;
+}
+
+.user-phnumber,
+.user-dob {
+  margin-bottom: 8px;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.user-policies {
+  margin-top: 16px;
+}
+
+.image-container .image {
+  display: inline-block;
+
+  background-position: 50% 50%;
+  background-size: cover;
+  border-radius: 50%;
+}

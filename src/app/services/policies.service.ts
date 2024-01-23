@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Policy } from '../interfaces/policy';
 
 @Injectable({
   providedIn: 'root',
@@ -55,5 +56,9 @@ export class PoliciesService {
 
   getAllPolicies(): any[] {
     return this.policiesList;
+  }
+
+  getPolicyData(id: string): Policy {
+    return this.policiesList.filter((p) => p.id == id)[0];
   }
 }

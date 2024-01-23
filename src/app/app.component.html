@@ -1,4 +1,4 @@
-@if (currentRoute=="/login") {
+@if (currentRoute=="/login" || currentRoute=="/register") {
 <div>
   <router-outlet />
 </div>
@@ -36,10 +36,10 @@
         >
         <mat-list-item>
           <a
-            routerLink="/policies"
+            routerLink="/allusers"
             (click)="!drawer.toggle()"
             style="text-decoration: none"
-            >Policies</a
+            >Users</a
           >
         </mat-list-item>
       </mat-list>

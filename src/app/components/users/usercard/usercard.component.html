@@ -1,0 +1,32 @@
+<mat-accordion style="margin: 1px">
+  <mat-expansion-panel
+    (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false"
+  >
+    <mat-expansion-panel-header style="height: 15vh">
+      <div style="width: 10%; margin: 0; padding: 0">
+        <div>
+          <div mat-card-avatar class="image-container">
+            <img [src]="randomImage" class="image" alt="" />
+          </div>
+        </div>
+      </div>
+      <mat-panel-description
+        style="display: flex; justify-content: space-evenly"
+      >
+        <div>
+          <p class="user-name">userName: {{ user.username }}</p>
+        </div>
+        <div>
+          <p class="user-name">Dob:{{ user.dob }}</p>
+          <p class="user-username">Name: {{ user.fullName }}</p>
+        </div>
+        <div>
+          <p class="user-phnumber">Phone Number: {{ user.phNumber }}</p>
+          <p class="user-dob">Date of Birth: {{ user.dob }}</p>
+        </div>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <app-user-policies *ngIf="user.policies" [user]="user"></app-user-policies>
+  </mat-expansion-panel>
+</mat-accordion>

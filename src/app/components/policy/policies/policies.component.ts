@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { PoliciesService } from '../../services/policies.service';
+import { PoliciesService } from '../../../services/policies.service';
 
 import { PolicyDialogComponent } from '../policy-dialog/policy-dialog.component';
 

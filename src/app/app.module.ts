@@ -12,17 +12,23 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent } from './components/layout/home/home.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { PoliciesComponent } from './components/policies/policies.component';
+import { PoliciesComponent } from './components/policy/policies/policies.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { PolicyDialogComponent } from './components/policy-dialog/policy-dialog.component';
+import { PolicyDialogComponent } from './components/policy/policy-dialog/policy-dialog.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { PolicyAddDialogComponent } from './components/policy-add-dialog/policy-add-dialog.component';
+import { PolicyAddDialogComponent } from './components/policy/policy-add-dialog/policy-add-dialog.component';
 import { MatSelectModule } from '@angular/material/select';
 
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { RegisterUserComponent } from './components/register-user/register-user.component';
+import { UsersComponent } from './components/layout/users/users.component';
+import { MatTableModule } from '@angular/material/table';
+import { UsercardComponent } from './components/users/usercard/usercard.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { UserPoliciesComponent } from './components/users/user-policies/user-policies.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +38,10 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
     PoliciesComponent,
     PolicyDialogComponent,
     PolicyAddDialogComponent,
+    RegisterUserComponent,
+    UsersComponent,
+    UsercardComponent,
+    UserPoliciesComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +60,8 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     MatSelectModule,
     ReactiveFormsModule,
+    MatTableModule,
+    MatExpansionModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

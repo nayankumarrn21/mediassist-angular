@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { PoliciesService } from '../../services/policies.service';
+import { PoliciesService } from '../../../services/policies.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { PolicyAddDialogComponent } from '../policy-add-dialog/policy-add-dialog.component';
+import { PolicyAddDialogComponent } from '../../policy/policy-add-dialog/policy-add-dialog.component';
 
 @Component({
   selector: 'app-home',

@@ -1,17 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { PoliciesService } from '../../services/policies.service';
+import { PoliciesService } from '../../../services/policies.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-export interface Policy {
-  id: string;
-  title: string;
-  insuredAmount: String;
-  companyName: String;
-  beneficiariesList: any[];
-  description: String;
-}
+import { Policy } from '../../../interfaces/policy';
 
 @Component({
   selector: 'app-policy-add-dialog',

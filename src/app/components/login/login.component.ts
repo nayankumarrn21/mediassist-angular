@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UsersService } from '../../services/users.service';
+import { User } from '../../interfaces/user';
 
 @Component({
   selector: 'app-login',
@@ -11,17 +13,19 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
 
-  constructor(private router: Router, private snackBar: MatSnackBar) {}
+  constructor(
+    private router: Router,
+    private snackBar: MatSnackBar,
+    public userService: UsersService
+  ) {}
 
   login(): void {
-    console.log('Username:', this.username);
-    console.log(
-      'Password:',
-      this.password + ' ' + this.getCurrentDateDDMMYYYY()
-    );
+    let user = this.userService.getUser(this.username);
     if (
-      this.username === 'neudesic' &&
-      this.password == this.getCurrentDateDDMMYYYY()
+      user &&
+      user.username == this.username &&
+      user.password == this.password &&
+      user.role == 'admin'
     ) {
       this.router.navigate(['/home']);
     } else {

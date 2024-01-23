@@ -1,0 +1,145 @@
+<div>
+  <div>
+    <mat-card class="center-container">
+      <form class="example-form" [formGroup]="formGroup" (ngSubmit)="addUser()">
+        <mat-toolbar color="primary" class="container-header">
+          <p>
+            Medi-Assists Registration Form
+            <mat-icon
+              aria-hidden="true"
+              aria-label="Example home icon"
+              fontIcon="vaccines"
+            ></mat-icon>
+          </p>
+        </mat-toolbar>
+        <div style="display: flex">
+          <mat-form-field class="example-full-width">
+            <mat-label>Mail Address</mat-label>
+            <input
+              type="email"
+              matInput
+              placeholder="Enter the Mail Address"
+              formControlName="username"
+            />
+            <mat-error *ngIf="formGroup.controls.username.hasError('required')">
+              Username is required and should be valid
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Mobile Number</mat-label>
+            <input
+              matInput
+              type="number"
+              placeholder="Enter the phone number"
+              formControlName="phNumber"
+            />
+            <mat-error *ngIf="formGroup.controls.phNumber.hasError('required')">
+              Phone Number is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div style="display: flex">
+          <mat-form-field class="example-full-width">
+            <mat-label>Full Name</mat-label>
+            <input
+              matInput
+              placeholder="Enter the Full Name"
+              formControlName="fullName"
+            />
+            <mat-error *ngIf="formGroup.controls.fullName.hasError('required')">
+              Full Name is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Date of Birth</mat-label>
+            <input
+              matInput
+              type="date"
+              placeholder="Enter the Data of birth"
+              formControlName="dob"
+            />
+            <mat-error *ngIf="formGroup.controls.dob.hasError('required')">
+              Date of Birth is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div style="display: flex">
+          <mat-form-field class="example-full-width">
+            <mat-label>Gender</mat-label>
+            <mat-select
+              matInput
+              placeholder="Select the Gender"
+              formControlName="gender"
+            >
+              <mat-option
+                [value]="item"
+                *ngFor="let item of ['Male', 'Female']"
+                >{{ item }}</mat-option
+              >
+            </mat-select>
+
+            <mat-error *ngIf="formGroup.controls.gender.hasError('required')">
+              gender is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Work Type</mat-label>
+            <mat-select
+              matInput
+              placeholder="Select the Work Type"
+              formControlName="workType"
+            >
+              <mat-option [value]="item" *ngFor="let item of workTypeList">{{
+                item
+              }}</mat-option>
+            </mat-select>
+
+            <mat-error *ngIf="formGroup.controls.workType.hasError('required')">
+              workType is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div style="display: flex">
+          <mat-form-field class="example-full-width">
+            <mat-label>Password </mat-label>
+            <input
+              type="password"
+              matInput
+              placeholder="Enter the password"
+              formControlName="password"
+            />
+            <mat-error *ngIf="formGroup.controls.password.hasError('required')">
+              Password is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Confirm password</mat-label>
+            <input
+              matInput
+              type="password"
+              placeholder="Re-enter the Password"
+              formControlName="confirmPassword"
+            />
+            <mat-error
+              *ngIf="formGroup.controls.confirmPassword.hasError('required')"
+            >
+              Confirm Password is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <button
+          mat-raised-button
+          color="primary"
+          style="float: right; margin: 20px"
+          type="submit"
+        >
+          Register
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</div>
