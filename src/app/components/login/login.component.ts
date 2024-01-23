@@ -21,6 +21,7 @@ export class LoginComponent {
 
   login(): void {
     let user = this.userService.getUser(this.username);
+    console.log(user);
     if (
       user &&
       user.username == this.username &&

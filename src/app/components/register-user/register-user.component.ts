@@ -37,8 +37,14 @@ export class RegisterUserComponent {
   }
 
   addUser() {
-    console.log(this.formGroup.controls);
-    if (this.formGroup.status === 'VALID') {
+    if (
+      this.formGroup.status === 'VALID' &&
+      this.formGroup.value.password != this.formGroup.value.confirmPassword
+    ) {
+      this.snackBar.open('password did not match', '', {
+        duration: 3000,
+      });
+    } else if (this.formGroup.status === 'VALID') {
       const user: User = {
         username: this.formGroup.value.username,
         phNumber: this.formGroup.value.phNumber,
@@ -46,11 +52,10 @@ export class RegisterUserComponent {
         dob: this.formGroup.value.dob,
         gender: this.formGroup.value.gender,
         workType: this.formGroup.value.workType,
-        password: this.formGroup.value.dob,
+        password: this.formGroup.value.password,
         role: 'user',
       };
       this.userService.addUser(user);
-      console.log(user);
       this.snackBar.open('User created successfully', '', {
         duration: 3000,
       });

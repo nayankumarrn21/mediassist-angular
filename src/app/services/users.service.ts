@@ -56,12 +56,19 @@ export class UsersService {
     },
   ];
 
-  constructor() {}
+  constructor() {
+    localStorage.setItem('users', JSON.stringify(this.usersList));
+  }
 
   addUser(user: User) {
-    console.log(user);
     this.usersList.push(user);
-    localStorage.setItem('users', JSON.stringify(this.usersList));
+    const usersJson = localStorage.getItem('users');
+    if (usersJson) {
+      let users: User[] = JSON.parse(usersJson);
+      users.push(user);
+      localStorage.setItem('users', JSON.stringify(users));
+      console.log(users);
+    }
   }
 
   getUsers(): Array<User> {
