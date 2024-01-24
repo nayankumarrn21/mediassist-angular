@@ -59,8 +59,8 @@ export class UsersService {
   loggedInUser?: User;
 
   constructor() {
-    const usersList = localStorage.getItem('usersList');
-    if (usersList) {
+    const usersList = localStorage.getItem('users');
+    if (!usersList) {
       localStorage.setItem('users', JSON.stringify(this.usersList));
     }
   }
