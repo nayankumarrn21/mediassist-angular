@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { UsersService } from './services/users.service';
 
 @Component({
   selector: 'app-root',
@@ -21,9 +22,5 @@ export class AppComponent implements OnInit {
       .subscribe((event: any) => {
         this.currentRoute = event.urlAfterRedirects;
       });
-  }
-
-  logout(): void {
-    this.router.navigate(['/login']);
   }
 }

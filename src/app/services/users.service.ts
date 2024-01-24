@@ -56,8 +56,24 @@ export class UsersService {
     },
   ];
 
+  loggedInUser?: User;
+
   constructor() {
-    localStorage.setItem('users', JSON.stringify(this.usersList));
+    const usersList = localStorage.getItem('usersList');
+    if (usersList) {
+      localStorage.setItem('users', JSON.stringify(this.usersList));
+    }
+  }
+
+  setLoggedInUser(user: User): void {
+    localStorage.setItem('loggedInUser', JSON.stringify(user));
+  }
+  getLoggedInUser(): User | null {
+    const user = localStorage.getItem('loggedInUser');
+    if (user) {
+      return JSON.parse(user);
+    }
+    return null;
   }
 
   addUser(user: User) {

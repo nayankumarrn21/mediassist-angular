@@ -1,9 +1,10 @@
-import { Component, Inject } from '@angular/core';
+import { Component, HostListener, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PoliciesService } from '../../../services/policies.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Policy } from '../../../interfaces/policy';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-policy-add-dialog',
@@ -11,6 +12,11 @@ import { Policy } from '../../../interfaces/policy';
   styleUrl: './policy-add-dialog.component.css',
 })
 export class PolicyAddDialogComponent {
+  @HostListener('window:beforeunload')
+  canDeactivate(): Observable<boolean> | boolean {
+    return !this.formStarted;
+  }
+
   multiSelectControl = new FormControl(this.policyObj.beneficiariesList || []);
   options = [
     { value: 'self', viewValue: 'Self' },
@@ -25,6 +31,7 @@ export class PolicyAddDialogComponent {
   ];
 
   formGroup: any;
+  formStarted: boolean = false;
 
   constructor(
     private policyService: PoliciesService,
@@ -47,6 +54,9 @@ export class PolicyAddDialogComponent {
         this.policyObj.description || '',
         Validators.required
       ),
+    });
+    this.formGroup.valueChanges.subscribe(() => {
+      this.formStarted = true;
     });
   }
 

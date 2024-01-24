@@ -28,7 +28,8 @@ export class LoginComponent {
       user.password == this.password &&
       user.role == 'admin'
     ) {
-      this.router.navigate(['/home']);
+      this.userService.setLoggedInUser(user);
+      this.router.navigate(['/admin/home']);
     } else {
       this.snackBar.open('Credentials are wrong', '', {
         duration: 3000,
