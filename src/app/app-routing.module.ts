@@ -7,28 +7,29 @@ import { RegisterUserComponent } from './components/register-user/register-user.
 import { UsersComponent } from './components/menus/users/users.component';
 import { authGuard } from './guard/auth.guard';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { registerFormAuthGuard } from './guard/register-form-auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, data: { isLogin: true } },
   { path: 'policies', component: PoliciesComponent },
-  { path: 'register', component: RegisterUserComponent },
+  {
+    path: 'register',
+    component: RegisterUserComponent,
+    canDeactivate: [registerFormAuthGuard],
+  },
 
   {
     path: 'admin',
     canActivate: [authGuard],
     loadChildren: () =>
-      import('../app/components/routing-modules/admin/admin.module').then(
-        (m) => m.AdminModule
-      ),
+      import('./routing-modules/admin/admin.module').then((m) => m.AdminModule),
   },
   {
     path: 'user',
     canActivate: [authGuard],
     loadChildren: () =>
-      import('../app/components/routing-modules/user/user.module').then(
-        (m) => m.UserModule
-      ),
+      import('./routing-modules/user/user.module').then((m) => m.UserModule),
   },
   { path: '**', component: NotFoundComponent },
 ];

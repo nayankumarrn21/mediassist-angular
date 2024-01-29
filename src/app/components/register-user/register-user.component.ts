@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { UsersService } from '../../services/users.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from '../../interfaces/user';
 import { Router } from '@angular/router';
+import { DeactivateFormService } from '../../services/deactivate-form.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-register-user',
@@ -11,6 +13,12 @@ import { Router } from '@angular/router';
   styleUrl: './register-user.component.css',
 })
 export class RegisterUserComponent {
+  @HostListener('window:beforeunload')
+  onWindowUnload(): Observable<boolean> | boolean {
+    return !this.isChanged;
+  }
+
+  isChanged = false;
   formGroup: any;
   workTypeList: string[] = [
     'Information Technology',
@@ -22,7 +30,8 @@ export class RegisterUserComponent {
   constructor(
     private router: Router,
     private userService: UsersService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private deactiaverService: DeactivateFormService
   ) {
     this.formGroup = new FormGroup({
       username: new FormControl('', Validators.required),
@@ -33,6 +42,11 @@ export class RegisterUserComponent {
       gender: new FormControl('Male', Validators.required),
       workType: new FormControl('', Validators.required),
       confirmPassword: new FormControl('', Validators.required),
+    });
+
+    this.formGroup.valueChanges.subscribe(() => {
+      this.isChanged = true;
+      this.deactiaverService.setIsRegisterisDirty(true);
     });
   }
 
