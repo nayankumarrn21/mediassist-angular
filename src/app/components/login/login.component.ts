@@ -3,6 +3,11 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UsersService } from '../../services/users.service';
 import { User } from '../../interfaces/user';
+import { Store } from '@ngrx/store';
+import * as AuthActions from '../../store/auth/auth.actions';
+import { loggedInUser } from '../../store/auth/auth.selector';
+import { AuthState } from '../../store/auth/auth.reducer';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -12,29 +17,32 @@ import { User } from '../../interfaces/user';
 export class LoginComponent {
   username: string = '';
   password: string = '';
+  loggedInUser$: Observable<User | null>;
 
   constructor(
     private router: Router,
     private snackBar: MatSnackBar,
-    public userService: UsersService
-  ) {}
+    public userService: UsersService,
+    public store: Store<AuthState>
+  ) {
+    this.loggedInUser$ = this.store.select(loggedInUser);
+  }
 
   login(): void {
-    let user = this.userService.getUser(this.username);
-    console.log(user);
-    if (
-      user &&
-      user.username == this.username &&
-      user.password == this.password &&
-      user.role == 'admin'
-    ) {
-      this.userService.setLoggedInUser(user);
-      this.router.navigate(['/admin/home']);
-    } else {
-      this.snackBar.open('Credentials are wrong', '', {
-        duration: 3000,
-      });
-    }
+    this.store.dispatch(
+      AuthActions.login({ username: this.username, password: this.password })
+    );
+
+    this.loggedInUser$.subscribe((user) => {
+      console.log(user);
+      if (user && user.role == 'admin') {
+        this.router.navigate(['/admin/home']);
+      } else {
+        this.snackBar.open('Credentials are wrong', '', {
+          duration: 3000,
+        });
+      }
+    });
   }
 
   getCurrentDateDDMMYYYY(): string {

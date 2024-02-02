@@ -1,5 +1,6 @@
-import { CanDeactivateFn } from '@angular/router';
+import { CanDeactivateFn, Router } from '@angular/router';
 import { DeactivateFormService } from '../services/deactivate-form.service';
+import { inject } from '@angular/core';
 
 export const registerFormAuthGuard: CanDeactivateFn<unknown> = (
   component,
@@ -7,12 +8,15 @@ export const registerFormAuthGuard: CanDeactivateFn<unknown> = (
   currentState,
   nextState
 ) => {
-  const deactiaverService = new DeactivateFormService();
-  console.log(deactiaverService.isRegisterisDirty.subscribe());
-  if (deactiaverService.isRegisterisDirty.subscribe()) {
+  const deactiaverService = inject(DeactivateFormService);
+  console.log();
+  if (
+    deactiaverService.isRegisterisDirty$.subscribe() &&
+    !deactiaverService.formComplete$.subscribe()
+  ) {
     return window.confirm(
       'You have unsaved changes. Do you really want to leave?'
     );
   }
-  return false;
+  return inject(Router).navigate(['/login']);
 };

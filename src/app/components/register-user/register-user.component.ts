@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from '../../interfaces/user';
 import { Router } from '@angular/router';
 import { DeactivateFormService } from '../../services/deactivate-form.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-register-user',
@@ -13,12 +13,16 @@ import { Observable } from 'rxjs';
   styleUrl: './register-user.component.css',
 })
 export class RegisterUserComponent {
-  @HostListener('window:beforeunload')
-  onWindowUnload(): Observable<boolean> | boolean {
-    return !this.isChanged;
-  }
+  // @HostListener('window:beforeunload')
+  // onWindowUnload(): Observable<boolean> | boolean {
+  //   if (this.formGroup.status === 'VALID') {
+  //     return true;
+  //   }
+  //   return !this.isChanged;
+  // }
 
   isChanged = false;
+  formCompleted = false;
   formGroup: any;
   workTypeList: string[] = [
     'Information Technology',
@@ -48,6 +52,12 @@ export class RegisterUserComponent {
       this.isChanged = true;
       this.deactiaverService.setIsRegisterisDirty(true);
     });
+
+    this.formGroup.statusChanges.subscribe((status: string) => {
+      console.log('Form status changed:', status);
+      this.formCompleted = status === 'VALID' ? true : false;
+      this.deactiaverService.setFormComplete(this.formCompleted);
+    });
   }
 
   addUser() {
@@ -58,6 +68,7 @@ export class RegisterUserComponent {
       this.snackBar.open('password did not match', '', {
         duration: 3000,
       });
+      return;
     } else if (this.formGroup.status === 'VALID') {
       const user: User = {
         username: this.formGroup.value.username,
@@ -70,10 +81,11 @@ export class RegisterUserComponent {
         role: 'user',
       };
       this.userService.addUser(user);
+
       this.snackBar.open('User created successfully', '', {
         duration: 3000,
       });
-      this.router.navigate(['/login']);
+      // this.router.navigate(['/login']);
     }
   }
 }

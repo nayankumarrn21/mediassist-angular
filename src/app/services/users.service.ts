@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user';
+import { Store } from '@ngrx/store';
+import { AuthState } from '../store/auth/auth.reducer';
+import { loggedInUser } from '../store/auth/auth.selector';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -56,24 +60,20 @@ export class UsersService {
     },
   ];
 
-  loggedInUser?: User;
+  loggedUser: User | null = null;
 
-  constructor() {
+  constructor(private store: Store<AuthState>) {
     const usersList = localStorage.getItem('users');
     if (!usersList) {
       localStorage.setItem('users', JSON.stringify(this.usersList));
     }
+    this.store
+      .select(loggedInUser)
+      .subscribe((data) => (this.loggedUser = data));
   }
 
-  setLoggedInUser(user: User): void {
-    localStorage.setItem('loggedInUser', JSON.stringify(user));
-  }
   getLoggedInUser(): User | null {
-    const user = localStorage.getItem('loggedInUser');
-    if (user) {
-      return JSON.parse(user);
-    }
-    return null;
+    return this.loggedUser;
   }
 
   addUser(user: User) {

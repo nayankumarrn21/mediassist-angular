@@ -33,6 +33,11 @@ import { LoginComponent } from './components/login/login.component';
 import { UsersComponent } from './components/menus/users/users.component';
 import { MainPageComponent } from './components/layout/main-page/main-page.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { StoreModule } from '@ngrx/store';
+import { authReducer } from './store/auth/auth.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './store/auth/auth.effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -68,6 +73,11 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     ReactiveFormsModule,
     MatTableModule,
     MatExpansionModule,
+    StoreModule.forRoot({ auth: authReducer }),
+    EffectsModule.forRoot([AuthEffects]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

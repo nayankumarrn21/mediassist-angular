@@ -5,10 +5,15 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class DeactivateFormService {
-  public isRegisterisDirty = new BehaviorSubject(false);
+  public isRegisterisDirty$ = new BehaviorSubject(false);
+  public formComplete$ = new BehaviorSubject(false);
   constructor() {}
 
   setIsRegisterisDirty(isRegisterisDirty: boolean): void {
-    this.isRegisterisDirty.next(isRegisterisDirty);
+    this.isRegisterisDirty$.next(isRegisterisDirty);
+  }
+
+  setFormComplete(formComplete: boolean): void {
+    this.formComplete$.next(formComplete);
   }
 }
