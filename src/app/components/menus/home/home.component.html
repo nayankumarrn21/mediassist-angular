@@ -2,6 +2,7 @@
   <app-policies
     *ngFor="let policy of policyList"
     [policy]="policy"
+    (deletePolicyId)="deletePolicyId($event)"
   ></app-policies>
 
   <button

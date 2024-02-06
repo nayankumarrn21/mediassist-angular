@@ -15,11 +15,11 @@
         style="display: flex; justify-content: space-evenly"
       >
         <div>
-          <p class="user-name">userName: {{ user.username }}</p>
+          <p class="user-name">userName: {{ user.username | uppercase }}</p>
         </div>
         <div>
           <p class="user-name">Dob:{{ user.dob }}</p>
-          <p class="user-username">Name: {{ user.fullName }}</p>
+          <p class="user-username">Name: {{ user.fullName | uppercase }}</p>
         </div>
         <div>
           <p class="user-phnumber">Phone Number: {{ user.phNumber }}</p>

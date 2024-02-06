@@ -17,7 +17,20 @@
     </p>
   </mat-card-content>
 
-  <mat-card-actions>
-    <button mat-button (click)="openPolicyDialog()">View Policy</button>
+  <mat-card-actions style="display: flex; justify-content: space-between">
+    <button mat-button (click)="deletePolicy()">
+      <mat-icon
+        aria-hidden="false"
+        aria-label="Example home icon"
+        fontIcon="delete"
+      ></mat-icon>
+    </button>
+    <button mat-button (click)="openPolicyDialog()">
+      <mat-icon
+        aria-hidden="false"
+        aria-label="Example home icon"
+        fontIcon="visibility"
+      ></mat-icon>
+    </button>
   </mat-card-actions>
 </mat-card>

@@ -17,7 +17,7 @@ import { Observable } from 'rxjs';
 export class LoginComponent {
   username: string = '';
   password: string = '';
-  loggedInUser$: Observable<User | null>;
+  currentUser: User | null = null;
 
   constructor(
     private router: Router,
@@ -25,7 +25,9 @@ export class LoginComponent {
     public userService: UsersService,
     public store: Store<AuthState>
   ) {
-    this.loggedInUser$ = this.store.select(loggedInUser);
+    this.store.select(loggedInUser).subscribe((user) => {
+      this.currentUser = user;
+    });
   }
 
   login(): void {
@@ -33,16 +35,14 @@ export class LoginComponent {
       AuthActions.login({ username: this.username, password: this.password })
     );
 
-    this.loggedInUser$.subscribe((user) => {
-      console.log(user);
-      if (user && user.role == 'admin') {
-        this.router.navigate(['/admin/home']);
-      } else {
-        this.snackBar.open('Credentials are wrong', '', {
-          duration: 3000,
-        });
-      }
-    });
+    console.log(this.currentUser);
+    if (this.currentUser && this.currentUser.role == 'admin') {
+      this.router.navigate(['/admin/home']);
+    } else {
+      this.snackBar.open('Credentials are wrong', '', {
+        duration: 3000,
+      });
+    }
   }
 
   getCurrentDateDDMMYYYY(): string {

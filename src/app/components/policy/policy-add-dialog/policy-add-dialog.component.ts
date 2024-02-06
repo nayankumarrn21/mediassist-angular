@@ -4,7 +4,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PoliciesService } from '../../../services/policies.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Policy } from '../../../interfaces/policy';
-import { Observable } from 'rxjs';
+import { Observable, last, take } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as PolicyActions from '../../../store/policy/policy.actions';
+import { policyListSelector } from '../../../store/policy/policy.selector';
 
 @Component({
   selector: 'app-policy-add-dialog',
@@ -32,12 +35,14 @@ export class PolicyAddDialogComponent {
 
   formGroup: any;
   formStarted: boolean = false;
+  policyList: Policy[] = [];
 
   constructor(
     private policyService: PoliciesService,
     public dialogRef: MatDialogRef<PolicyAddDialogComponent>,
     private snackBar: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public policyObj: Policy
+    @Inject(MAT_DIALOG_DATA) public policyObj: Policy,
+    private store: Store<Policy[]>
   ) {
     this.formGroup = new FormGroup({
       title: new FormControl(this.policyObj.title, Validators.required),
@@ -58,12 +63,17 @@ export class PolicyAddDialogComponent {
     this.formGroup.valueChanges.subscribe(() => {
       this.formStarted = true;
     });
+    this.store.select(policyListSelector).subscribe((data) => {
+      console.log('data from the policy selector', data);
+      this.policyList = data;
+    });
   }
 
   addPolicy(): void {
     console.log(this.multiSelectControl.value);
 
     let policy = {
+      id: this.policyList.length + 1 + '',
       title: this.formGroup.value.title,
       companyName: this.formGroup.value.companyName,
       beneficiariesList: this.multiSelectControl.value,
@@ -72,7 +82,8 @@ export class PolicyAddDialogComponent {
     };
     console.log(policy, this.formGroup.status);
     if (this.formGroup.status === 'VALID') {
-      this.policyService.createPolicy(policy);
+      //  this.policyService.createPolicy(policy);
+      this.store.dispatch(PolicyActions.addPolicy({ policy: policy }));
       this.dialogRef.close();
       this.snackBar.open('Policy added successfully', '', {
         duration: 3000,

@@ -9,7 +9,6 @@ export const registerFormAuthGuard: CanDeactivateFn<unknown> = (
   nextState
 ) => {
   const deactiaverService = inject(DeactivateFormService);
-  console.log();
   if (
     deactiaverService.isRegisterisDirty$.subscribe() &&
     !deactiaverService.formComplete$.subscribe()

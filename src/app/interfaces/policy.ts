@@ -3,6 +3,6 @@ export interface Policy {
   title: string;
   insuredAmount: String;
   companyName: String;
-  beneficiariesList: any[];
+  beneficiariesList: any[] | null;
   description: String;
 }

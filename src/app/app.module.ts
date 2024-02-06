@@ -38,6 +38,8 @@ import { authReducer } from './store/auth/auth.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './store/auth/auth.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { PolicyEffects } from './store/policy/policy.effects';
+import { policyReducer } from './store/policy/policy.reducer';
 
 @NgModule({
   declarations: [
@@ -73,8 +75,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     ReactiveFormsModule,
     MatTableModule,
     MatExpansionModule,
-    StoreModule.forRoot({ auth: authReducer }),
-    EffectsModule.forRoot([AuthEffects]),
+    StoreModule.forRoot({ auth: authReducer, policies: policyReducer }),
+    EffectsModule.forRoot([AuthEffects, PolicyEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
     }),

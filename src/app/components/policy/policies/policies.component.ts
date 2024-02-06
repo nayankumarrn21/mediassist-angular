@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { PoliciesService } from '../../../services/policies.service';
 
@@ -20,6 +20,9 @@ export class PoliciesComponent {
   @Input()
   policy!: any;
 
+  @Output()
+  deletePolicyId = new EventEmitter<string>();
+
   ngOnInit() {
     console.log(this.policy);
     this.randomImage = `assets/health${Math.floor(this.policy.id % 7)}.jpg`;
@@ -33,5 +36,9 @@ export class PoliciesComponent {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  deletePolicy() {
+    this.deletePolicyId.emit(this.policy.id);
   }
 }

@@ -6,6 +6,7 @@
     [formGroup]="formGroup"
     (ngSubmit)="addPolicy()"
     style="display: flex; flex-direction: column"
+    #itemForm="ngForm"
   >
     <div class="div-container">
       <mat-form-field class="example-full-width">
@@ -15,6 +16,7 @@
           placeholder="Enter the Policy Name"
           formControlName="title"
           name="title"
+          #myInput
         />
         <mat-error *ngIf="formGroup.controls.title.hasError('required')">
           Title is required
@@ -83,4 +85,5 @@
       <button color="primary" mat-button type="submit">Add</button>
     </mat-dialog-actions>
   </form>
+  <p>{{ itemForm.form.valid }}{{ myInput.value }}</p>
 </mat-dialog-content>
