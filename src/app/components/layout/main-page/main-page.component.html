@@ -12,14 +12,14 @@
       <mat-icon>menu</mat-icon>
     </button>
     <span>Medi-Assists</span>
-    <button
-      style="position: absolute; right: 0"
-      mat-icon-button
-      class="example-icon"
-      (click)="logout()"
-    >
-      <mat-icon>logout</mat-icon>
-    </button>
+    <div style="position: absolute; right: 0; display: flex">
+      <app-session-timer style="margin-top: 7px; margin-right: 5px">
+        <p style="margin-right: 5px">{{ loginTime | date : "short" }}</p>
+      </app-session-timer>
+      <button mat-icon-button class="example-icon" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
   </mat-toolbar>
   <mat-drawer-container class="example-container" autosize>
     <mat-drawer opened="true" #drawer class="example-sidenav" mode="side">

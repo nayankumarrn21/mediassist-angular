@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { UsersService } from '../../../services/users.service';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../../../store/auth/auth.reducer';
 import * as AuthActions from '../../../store/auth/auth.actions';
+import { SessionTimerComponent } from '../../shared/session-timer/session-timer.component';
 
 @Component({
   selector: 'app-main-page',
@@ -17,6 +18,11 @@ export class MainPageComponent {
 
   currentRoute: string = '';
   loggedInUser: any;
+
+  @ViewChild(SessionTimerComponent)
+  sessionTimer = {} as SessionTimerComponent;
+
+  loginTime = new Date();
 
   constructor(
     private router: Router,
@@ -32,6 +38,14 @@ export class MainPageComponent {
       .subscribe((event: any) => {
         this.currentRoute = event.urlAfterRedirects;
       });
+  }
+
+  ngAfterViewInit() {
+    this.sessionTimer.startSessionTimer();
+  }
+
+  ngDestroy() {
+    this.sessionTimer.stopSessionTimer();
   }
 
   logout(): void {

@@ -40,6 +40,8 @@ import { AuthEffects } from './store/auth/auth.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { PolicyEffects } from './store/policy/policy.effects';
 import { policyReducer } from './store/policy/policy.reducer';
+import { SessionTimerComponent } from './components/shared/session-timer/session-timer.component';
+import { CustomCurrency } from './pipes/custom-currency-pipe';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,8 @@ import { policyReducer } from './store/policy/policy.reducer';
     UserPoliciesComponent,
     MainPageComponent,
     NotFoundComponent,
+    SessionTimerComponent,
+    CustomCurrency,
   ],
   imports: [
     BrowserModule,

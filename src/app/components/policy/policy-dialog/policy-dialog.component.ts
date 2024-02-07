@@ -4,10 +4,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 export interface Policy {
   id: string;
   title: string;
-  insuredAmount: String;
-  companyName: String;
+  insuredAmount: string;
+  companyName: string;
   beneficiariesList: any[];
-  description: String;
+  description: string;
 }
 @Component({
   selector: 'app-policy-dialog',
