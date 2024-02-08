@@ -21,6 +21,7 @@ import { PolicyDialogComponent } from './components/policy/policy-dialog/policy-
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { PolicyAddDialogComponent } from './components/policy/policy-add-dialog/policy-add-dialog.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MatStepperModule } from '@angular/material/stepper';
 
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { RegisterUserComponent } from './components/register-user/register-user.component';
@@ -45,6 +46,8 @@ import { CustomCurrency } from './pipes/custom-currency-pipe';
 import { UserFilterComponent } from './components/users/user-filter/user-filter.component';
 import { AsyncPipe } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { UserHomeComponent } from './components/users/user-home/user-home.component';
+import { UserProfileComponent } from './components/users/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +66,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     SessionTimerComponent,
     CustomCurrency,
     UserFilterComponent,
+    UserHomeComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,6 +89,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatTableModule,
     MatExpansionModule,
     AsyncPipe,
+    MatStepperModule,
     MatAutocompleteModule,
     StoreModule.forRoot({ auth: authReducer, policies: policyReducer }),
     EffectsModule.forRoot([AuthEffects, PolicyEffects]),

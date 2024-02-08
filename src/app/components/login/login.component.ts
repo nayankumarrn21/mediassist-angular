@@ -38,6 +38,8 @@ export class LoginComponent {
     console.log(this.currentUser);
     if (this.currentUser && this.currentUser.role == 'admin') {
       this.router.navigate(['/admin/home']);
+    } else if (this.currentUser && this.currentUser.role == 'user') {
+      this.router.navigate(['/user/home']);
     } else {
       this.snackBar.open('Credentials are wrong', '', {
         duration: 3000,

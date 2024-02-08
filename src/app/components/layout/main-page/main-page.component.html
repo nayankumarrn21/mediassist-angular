@@ -1,8 +1,5 @@
 <div>
-  <mat-toolbar
-    *ngIf="loggedInUser && loggedInUser.role == 'admin'"
-    color="primary"
-  >
+  <mat-toolbar *ngIf="loggedInUser" color="primary">
     <button
       mat-icon-button
       class="example-icon"
@@ -36,11 +33,11 @@
         </mat-list-item>
 
         <mat-list-item *ngIf="loggedInUser && loggedInUser.role == 'user'">
-          <a
-            routerLink="/user/home"
-            (click)="!drawer.toggle()"
-            style="text-decoration: none"
-            >Home</a
+          <a routerLink="/user/home" style="text-decoration: none">Home</a>
+        </mat-list-item>
+        <mat-list-item *ngIf="loggedInUser && loggedInUser.role == 'user'">
+          <a routerLink="/user/profile" style="text-decoration: none"
+            >Profile</a
           >
         </mat-list-item>
       </mat-list>
