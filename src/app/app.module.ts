@@ -42,6 +42,9 @@ import { PolicyEffects } from './store/policy/policy.effects';
 import { policyReducer } from './store/policy/policy.reducer';
 import { SessionTimerComponent } from './components/shared/session-timer/session-timer.component';
 import { CustomCurrency } from './pipes/custom-currency-pipe';
+import { UserFilterComponent } from './components/users/user-filter/user-filter.component';
+import { AsyncPipe } from '@angular/common';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -59,6 +62,7 @@ import { CustomCurrency } from './pipes/custom-currency-pipe';
     NotFoundComponent,
     SessionTimerComponent,
     CustomCurrency,
+    UserFilterComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,6 +83,8 @@ import { CustomCurrency } from './pipes/custom-currency-pipe';
     ReactiveFormsModule,
     MatTableModule,
     MatExpansionModule,
+    AsyncPipe,
+    MatAutocompleteModule,
     StoreModule.forRoot({ auth: authReducer, policies: policyReducer }),
     EffectsModule.forRoot([AuthEffects, PolicyEffects]),
     StoreDevtoolsModule.instrument({

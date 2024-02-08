@@ -1,7 +1,7 @@
 <div>
   <div>
     <mat-card class="center-container">
-      <form class="example-form" [formGroup]="formGroup" (ngSubmit)="addUser()">
+      <form class="example-form" [formGroup]="formGroup">
         <mat-toolbar color="primary" class="container-header">
           <p>
             Medi-Assists Registration Form
@@ -131,14 +131,25 @@
           </mat-form-field>
         </div>
 
-        <button
-          mat-raised-button
-          color="primary"
-          style="float: right; margin: 20px"
-          type="submit"
-        >
-          Register
-        </button>
+        <div style="float: right; margin: 20px">
+          <button
+            mat-raised-button
+            color="warn"
+            (click)="loginPage()"
+            style="margin-right: 5px"
+          >
+            Back
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="disableButton"
+            #registerSubmit
+          >
+            Register
+          </button>
+        </div>
       </form>
     </mat-card>
   </div>

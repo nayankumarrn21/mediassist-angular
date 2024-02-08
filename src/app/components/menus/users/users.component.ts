@@ -14,4 +14,17 @@ export class UsersComponent {
       .getUsers()
       .filter((user) => user.role === 'user');
   }
+
+  filterdUser(value: any) {
+    console.log('filter User', value);
+    this.users = this.userService
+      .getUsers()
+      .filter(
+        (user) =>
+          (user.fullName.toLowerCase().includes(value.toLowerCase()) ||
+            user.username.toLowerCase().includes(value.toLowerCase())) &&
+          user.role === 'user'
+      );
+    console.log(this.users);
+  }
 }

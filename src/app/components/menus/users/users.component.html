@@ -1,3 +1,12 @@
 <div>
-  <app-usercard *ngFor="let user of users" [user]="user"></app-usercard>
+  <app-user-filter (userSearchString)="filterdUser($event)"></app-user-filter>
+  @if (users.length>0) {<app-usercard
+    *ngFor="let user of users"
+    [user]="user"
+  ></app-usercard
+  >} @else {
+  <div class="container">
+    <div class="message">No data found</div>
+  </div>
+  }
 </div>

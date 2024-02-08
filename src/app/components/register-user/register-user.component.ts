@@ -1,29 +1,54 @@
-import { Component, HostListener } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { UsersService } from '../../services/users.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from '../../interfaces/user';
 import { Router } from '@angular/router';
 import { DeactivateFormService } from '../../services/deactivate-form.service';
-import { Observable, Subject } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  debounce,
+  debounceTime,
+  fromEvent,
+  interval,
+  startWith,
+  tap,
+  timer,
+} from 'rxjs';
 
 @Component({
   selector: 'app-register-user',
   templateUrl: './register-user.component.html',
   styleUrl: './register-user.component.css',
 })
-export class RegisterUserComponent {
-  // @HostListener('window:beforeunload')
-  // onWindowUnload(): Observable<boolean> | boolean {
-  //   if (this.formGroup.status === 'VALID') {
-  //     return true;
-  //   }
-  //   return !this.isChanged;
-  // }
+export class RegisterUserComponent implements AfterViewInit {
+  @HostListener('window:beforeunload')
+  onWindowUnload(): Observable<boolean> | boolean {
+    if (this.isChanged) {
+      if (this.formGroup.status === 'VALID') {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  @ViewChild('registerSubmit', { read: ElementRef })
+  registerSubmitButton!: ElementRef<HTMLButtonElement>;
 
   isChanged = false;
   formCompleted = false;
   formGroup: any;
+
+  disableButton: boolean = false;
+
   workTypeList: string[] = [
     'Information Technology',
     'Doctor',
@@ -54,13 +79,31 @@ export class RegisterUserComponent {
     });
 
     this.formGroup.statusChanges.subscribe((status: string) => {
-      console.log('Form status changed:', status);
       this.formCompleted = status === 'VALID' ? true : false;
       this.deactiaverService.setFormComplete(this.formCompleted);
     });
   }
 
+  ngAfterViewInit(): void {
+    fromEvent(this.registerSubmitButton.nativeElement, 'click')
+      .pipe(
+        // tap(() => {
+        //   this.disableButton = true;
+        // }),
+        // debounceTime(1000),
+        debounce(() => {
+          // this.disableButton = true;
+          return timer(1000);
+        })
+      )
+      .subscribe(() => {
+        this.disableButton = false;
+        this.addUser();
+      });
+  }
+
   addUser() {
+    console.log('Inside the Add User Method');
     if (
       this.formGroup.status === 'VALID' &&
       this.formGroup.value.password != this.formGroup.value.confirmPassword
@@ -81,11 +124,14 @@ export class RegisterUserComponent {
         role: 'user',
       };
       this.userService.addUser(user);
-
       this.snackBar.open('User created successfully', '', {
         duration: 3000,
       });
-      // this.router.navigate(['/login']);
+      this.router.navigate(['/login']);
     }
+  }
+
+  loginPage() {
+    this.router.navigate(['/login']);
   }
 }

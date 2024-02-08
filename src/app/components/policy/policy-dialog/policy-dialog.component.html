@@ -3,7 +3,9 @@
 <mat-divider></mat-divider>
 <mat-dialog-content class="mat-typography">
   <h3>Owned By:- {{ data.companyName }}</h3>
-  <h3>Insured Money:- {{ data.insuredAmount | CustomCurrency | currency }}</h3>
+  <h3>
+    Insured Money:- {{ data.insuredAmount | CustomCurrency | currency }} Million
+  </h3>
   <h3>Beneficiaries:- {{ data.beneficiariesList }}</h3>
 
   <h3>Description</h3>

@@ -9,13 +9,13 @@ export const registerFormAuthGuard: CanDeactivateFn<unknown> = (
   nextState
 ) => {
   const deactiaverService = inject(DeactivateFormService);
-  if (
-    deactiaverService.isRegisterisDirty$.subscribe() &&
-    !deactiaverService.formComplete$.subscribe()
-  ) {
-    return window.confirm(
-      'You have unsaved changes. Do you really want to leave?'
-    );
+  if (deactiaverService.isRegisterisDirty) {
+    if (!deactiaverService.formComplete) {
+      return window.confirm(
+        'You have unsaved changes. Do you really want to leave?'
+      );
+    }
   }
-  return inject(Router).navigate(['/login']);
+  // return inject(Router).navigate(['/login']);
+  return true;
 };
