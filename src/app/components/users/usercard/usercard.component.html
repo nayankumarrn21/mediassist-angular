@@ -6,9 +6,18 @@
     <mat-expansion-panel-header style="height: 15vh">
       <div style="width: 10%; margin: 0; padding: 0">
         <div>
+          @if(randomImage){
           <div mat-card-avatar class="image-container">
-            <img [src]="randomImage" class="image" alt="" />
+            <img
+              [src]="randomImage"
+              style="width: 60px; height: 60px"
+              class="image"
+              alt=""
+            />
           </div>
+          }@else {
+          <div #profilePlaceHolder id="profileImage"></div>
+          }
         </div>
       </div>
       <mat-panel-description

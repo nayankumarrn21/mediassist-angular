@@ -1,51 +1,49 @@
-<div class="main-container">
-  <div class="center-container">
-    <mat-card class="container">
-      <form class="example-form">
-        <mat-toolbar color="primary" class="container-header">
-          <p>
-            Medi-Assists
-            <mat-icon
-              aria-hidden="true"
-              aria-label="Example home icon"
-              fontIcon="vaccines"
-            ></mat-icon>
-          </p>
-        </mat-toolbar>
-        <mat-form-field class="example-full-width">
-          <mat-label>User Name</mat-label>
-          <input
-            matInput
-            placeholder="Enter the Username"
-            [(ngModel)]="username"
-            name="username"
-          />
-        </mat-form-field>
+<div class="center-container">
+  <mat-card class="container" style="margin: 0">
+    <form class="example-form" style="margin: 0px; max-width: 100%">
+      <mat-toolbar color="primary" class="container-header">
+        <p>
+          Medi-Assists
+          <mat-icon
+            aria-hidden="true"
+            aria-label="Example home icon"
+            fontIcon="vaccines"
+          ></mat-icon>
+        </p>
+      </mat-toolbar>
+      <mat-form-field class="example-full-width">
+        <mat-label>User Name</mat-label>
+        <input
+          matInput
+          placeholder="Enter the Username"
+          [(ngModel)]="username"
+          name="username"
+        />
+      </mat-form-field>
 
-        <mat-form-field class="example-full-width">
-          <mat-label>Password</mat-label>
-          <input
-            matInput
-            type="password"
-            placeholder="Enter the Password"
-            [(ngModel)]="password"
-            name="password"
-          />
-        </mat-form-field>
-        <a
-          style="display: inline-block; text-align: right; width: 90%"
-          routerLink="/register"
-          >Register...</a
-        >
-        <button
-          mat-raised-button
-          color="primary"
-          style="width: 100%"
-          (click)="login()"
-        >
-          Login
-        </button>
-      </form>
-    </mat-card>
-  </div>
+      <mat-form-field class="example-full-width">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          type="password"
+          placeholder="Enter the Password"
+          [(ngModel)]="password"
+          name="password"
+        />
+      </mat-form-field>
+      <a
+        style="display: inline-block; text-align: right; width: 90%"
+        routerLink="/register"
+        >Register...</a
+      >
+      <button
+        mat-raised-button
+        color="primary"
+        style="width: 100%"
+        (click)="login()"
+      >
+        Login
+      </button>
+    </form>
+  </mat-card>
 </div>

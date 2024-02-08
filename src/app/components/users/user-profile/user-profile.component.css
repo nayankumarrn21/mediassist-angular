@@ -1,0 +1,84 @@
+.container {
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+#preview {
+  margin-top: 20px;
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.profil-image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  background-color: #673ab7;
+  padding: 3px;
+}
+
+#profileImage {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: #512da8;
+  font-size: 8rem;
+  color: #fff;
+  text-align: center;
+  line-height: 200px;
+  margin: 20px 0;
+}
+
+.center-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-header {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-form {
+  width: 75%;
+  margin-top: 10vh;
+  box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.5);
+}
+
+.example-full-width {
+  width: 85%;
+  margin-left: 5%;
+  margin-top: 3%;
+  margin-right: 5%;
+}
+
+.custom-btm {
+  border-radius: 3px;
+  color: #fff;
+  background-color: #673ab7;
+  border: 0;
+  transition: 0.2s;
+  overflow: hidden;
+  margin-left: 25%;
+  margin-top: 2px;
+}
+
+.custom-btm input[type="file"] {
+  cursor: pointer;
+  position: absolute;
+  left: 0%;
+  top: 0%;
+  transform: scale(3);
+  opacity: 0;
+}

@@ -21,14 +21,14 @@ export class UsersService {
       role: 'admin',
     },
     {
-      username: 'user@gmail.com',
+      username: 'user',
       password: 'user',
       phNumber: 9888888888,
       fullName: 'User John',
       dob: '2023-01-01',
       role: 'user',
       gender: 'Male',
-      workType: 'Docter',
+      workType: 'Biotechnology',
       policies: [
         {
           id: '1',
@@ -99,5 +99,15 @@ export class UsersService {
       return users.filter((user) => user.username === username)[0] || null;
     }
     return null;
+  }
+
+  updateUser(user: User) {
+    const usersJson = localStorage.getItem('users');
+    if (usersJson) {
+      let users: User[] = JSON.parse(usersJson);
+      users = users.map((u) => (u.username === user.username ? user : u));
+      localStorage.setItem('users', JSON.stringify(users));
+      console.log(users);
+    }
   }
 }

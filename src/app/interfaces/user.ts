@@ -10,4 +10,5 @@ export interface User {
   workType: string;
   policies?: UserPolicy[];
   role?: String;
+  profilePath?: string;
 }

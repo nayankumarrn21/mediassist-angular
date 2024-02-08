@@ -48,6 +48,9 @@ import { AsyncPipe } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { UserHomeComponent } from './components/users/user-home/user-home.component';
 import { UserProfileComponent } from './components/users/user-profile/user-profile.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserCarouselComponent } from './components/users/user-carousel/user-carousel.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +71,7 @@ import { UserProfileComponent } from './components/users/user-profile/user-profi
     UserFilterComponent,
     UserHomeComponent,
     UserProfileComponent,
+    UserCarouselComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,11 +95,13 @@ import { UserProfileComponent } from './components/users/user-profile/user-profi
     AsyncPipe,
     MatStepperModule,
     MatAutocompleteModule,
+    NgbCarouselModule,
     StoreModule.forRoot({ auth: authReducer, policies: policyReducer }),
     EffectsModule.forRoot([AuthEffects, PolicyEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
     }),
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

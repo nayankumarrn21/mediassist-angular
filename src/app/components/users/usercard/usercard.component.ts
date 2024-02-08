@@ -1,4 +1,10 @@
-import { Component, Input } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  ViewChild,
+} from '@angular/core';
 import { User } from '../../../interfaces/user';
 
 @Component({
@@ -6,19 +12,27 @@ import { User } from '../../../interfaces/user';
   templateUrl: './usercard.component.html',
   styleUrl: './usercard.component.css',
 })
-export class UsercardComponent {
+export class UsercardComponent implements AfterViewInit {
   @Input()
   user!: User;
-  randomImage: string = '';
+  randomImage: string | null = null;
   panelOpenState = false;
 
+  @ViewChild('profilePlaceHolder', { read: ElementRef })
+  profilePlaceHolder!: ElementRef<HTMLButtonElement>;
+
   constructor() {}
+  ngAfterViewInit() {
+    this.profilePlaceHolder.nativeElement.innerText = this.user.username
+      .substring(0, 2)
+      .toUpperCase();
+  }
 
   ngOnInit() {
     console.log('Usercard', this.user);
-    this.randomImage = `https://randomuser.me/api/portraits/med/men/${this.getTheId(
-      this.user.username
-    )}.jpg`;
+    if (this.user && localStorage.getItem(this.user.username)) {
+      this.randomImage = localStorage.getItem(this.user.username);
+    }
   }
 
   hashCode(str: String): number {

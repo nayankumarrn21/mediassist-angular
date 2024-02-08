@@ -1,1 +1,138 @@
-<p>user-profile works!</p>
+<div>
+  <mat-card style="align-items: center">
+    <div style="align-items: center">
+      @if (imageUrl) {
+      <img class="profil-image" [src]="imageUrl" alt="" />
+      }@else {
+      <div #profilePlaceHolder id="profileImage"></div>
+      }
+
+      <div class="upload" style="margin-right: 5px">
+        <button mat-button class="custom-btm">
+          <input type="file" (change)="onFileSelected($event)" />
+          Upload
+          <mat-icon>photoCamera</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div style="width: 100%">
+      <form [formGroup]="formGroup" (submit)="formSubmit()">
+        <div style="display: flex">
+          <mat-form-field class="example-full-width">
+            <mat-label>Mail Address</mat-label>
+            <input
+              [disabled]="disabled"
+              type="input"
+              matInput
+              placeholder="Enter the Mail Address"
+              formControlName="username"
+            />
+            <mat-error *ngIf="formGroup.controls.username.hasError('required')">
+              Username is required and should be valid
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Mobile Number</mat-label>
+            <input
+              matInput
+              type="number"
+              placeholder="Enter the phone number"
+              formControlName="phNumber"
+            />
+            <mat-error *ngIf="formGroup.controls.phNumber.hasError('required')">
+              Phone Number is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Full Name</mat-label>
+            <input
+              matInput
+              placeholder="Enter the Full Name"
+              formControlName="fullName"
+            />
+            <mat-error *ngIf="formGroup.controls.fullName.hasError('required')">
+              Full Name is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div style="display: flex">
+          <mat-form-field class="example-full-width">
+            <mat-label>Date of Birth</mat-label>
+            <input
+              matInput
+              type="date"
+              placeholder="Enter the Data of birth"
+              formControlName="dob"
+            />
+            <mat-error *ngIf="formGroup.controls.dob.hasError('required')">
+              Date of Birth is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Gender</mat-label>
+            <mat-select
+              matInput
+              placeholder="Select the Gender"
+              formControlName="gender"
+            >
+              <mat-option
+                [value]="item"
+                *ngFor="let item of ['Male', 'Female']"
+                >{{ item }}</mat-option
+              >
+            </mat-select>
+
+            <mat-error *ngIf="formGroup.controls.gender.hasError('required')">
+              gender is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Work Type</mat-label>
+            <mat-select
+              matInput
+              placeholder="Select the Work Type"
+              formControlName="workType"
+            >
+              <mat-option [value]="item" *ngFor="let item of workTypeList">{{
+                item
+              }}</mat-option>
+            </mat-select>
+
+            <mat-error *ngIf="formGroup.controls.workType.hasError('required')">
+              workType is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div style="display: flex">
+          <mat-form-field class="example-full-width">
+            <mat-label>Password </mat-label>
+            <input
+              type="password"
+              matInput
+              placeholder="Enter the password"
+              formControlName="password"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Confirm password</mat-label>
+            <input
+              matInput
+              type="password"
+              placeholder="Re-enter the Password"
+              formControlName="confirmPassword"
+            />
+          </mat-form-field>
+        </div>
+        <div style="float: right; margin: 20px">
+          <button mat-raised-button color="primary" style="margin-right: 5px">
+            Update
+          </button>
+        </div>
+      </form>
+    </div>
+  </mat-card>
+</div>
