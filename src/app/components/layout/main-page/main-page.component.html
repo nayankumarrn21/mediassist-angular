@@ -31,6 +31,11 @@
             >Users</a
           >
         </mat-list-item>
+        <mat-list-item *ngIf="loggedInUser && loggedInUser.role == 'admin'">
+          <a routerLink="/admin/profile" style="text-decoration: none"
+            >Profile</a
+          >
+        </mat-list-item>
 
         <mat-list-item *ngIf="loggedInUser && loggedInUser.role == 'user'">
           <a routerLink="/user/home" style="text-decoration: none">Home</a>

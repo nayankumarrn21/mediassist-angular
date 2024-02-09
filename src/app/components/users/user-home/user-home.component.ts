@@ -10,6 +10,8 @@ import { loggedInUser } from '../../../store/auth/auth.selector';
 import { UserPolicy } from '../../../interfaces/user-policy';
 import { MatTableDataSource } from '@angular/material/table';
 import { CdkTableDataSourceInput } from '@angular/cdk/table';
+import { UserPolicyDialogComponent } from '../user-policy-dialog/user-policy-dialog.component';
+import { UsersService } from '../../../services/users.service';
 
 export interface TableDataSource {
   userPolicy: UserPolicy;
@@ -35,7 +37,11 @@ export class UserHomeComponent {
   userPolicyList: CdkTableDataSourceInput<TableDataSource> =
     new MatTableDataSource([]);
 
-  constructor(store: Store<Policy | User>, public dialog: MatDialog) {
+  constructor(
+    store: Store<Policy | User>,
+    public dialog: MatDialog,
+    userService: UsersService
+  ) {
     store.select(policyListSelector).subscribe((policyList) => {
       this.policyList = policyList;
     });
@@ -78,5 +84,11 @@ export class UserHomeComponent {
 
   openPolicyBuy(policy: Policy) {
     console.log(this.userPolicyList);
+    const dialogRef = this.dialog.open(UserPolicyDialogComponent, {
+      data: policy,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }

@@ -16,4 +16,9 @@ export const loginFailure = createAction(
   props<{ error: String }>()
 );
 
+export const updatLoggedInUser = createAction(
+  '[Auth] updat_logged_user',
+  props<{ user: User }>()
+);
+
 export const logout = createAction('[Auth] logout');

@@ -8,7 +8,7 @@ import { UsersComponent } from './components/menus/users/users.component';
 import { authGuard } from './guard/auth.guard';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { registerFormAuthGuard } from './guard/register-form-auth.guard';
-import { UserProfileComponent } from './components/users/user-profile/user-profile.component';
+import { UserProfileComponent } from './components/shared/user-profile/user-profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },

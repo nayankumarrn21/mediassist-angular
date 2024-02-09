@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../store/auth/auth.reducer';
+import * as AuthActions from '../store/auth/auth.actions';
 import { loggedInUser } from '../store/auth/auth.selector';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { UserPolicy } from '../interfaces/user-policy';
 
 @Injectable({
   providedIn: 'root',
@@ -108,6 +110,37 @@ export class UsersService {
       users = users.map((u) => (u.username === user.username ? user : u));
       localStorage.setItem('users', JSON.stringify(users));
       console.log(users);
+    }
+  }
+
+  updateUserPolicy(userPolicy: UserPolicy, user?: User): string {
+    console.log('Inside the updateUser', user);
+    const usersJson = localStorage.getItem('users');
+    const existingPolicy = user?.policies?.filter(
+      (p) => p.id === userPolicy.id
+    );
+    if (existingPolicy && existingPolicy.length) {
+      return 'policy already by the user';
+    }
+
+    if (usersJson) {
+      let users: User[] = JSON.parse(usersJson);
+      users = users.map((u) => {
+        if (user && u.username === user.username) {
+          if (u.policies) {
+            u.policies.push(userPolicy);
+          } else {
+            u.policies = [userPolicy];
+          }
+          this.store.dispatch(AuthActions.updatLoggedInUser({ user: u }));
+        }
+        return u;
+      });
+      localStorage.setItem('users', JSON.stringify(users));
+
+      return 'User Bought the policy Successfullly';
+    } else {
+      return 'Failed to Buy the Policy';
     }
   }
 }

@@ -125,7 +125,7 @@ export class UserProfileComponent implements AfterViewInit {
         workType: this.formGroup.value.workType,
         password: this.formGroup.value.password || this.loggenInUser?.password,
         policies: this.loggenInUser?.policies,
-        role: 'user',
+        role: this.loggenInUser?.role,
       };
       console.log(user);
       if (this.loggenInUser && this.imageUrl) {

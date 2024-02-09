@@ -47,10 +47,11 @@ import { UserFilterComponent } from './components/users/user-filter/user-filter.
 import { AsyncPipe } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { UserHomeComponent } from './components/users/user-home/user-home.component';
-import { UserProfileComponent } from './components/users/user-profile/user-profile.component';
+import { UserProfileComponent } from './components/shared/user-profile/user-profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserCarouselComponent } from './components/users/user-carousel/user-carousel.component';
+import { UserPolicyDialogComponent } from './components/users/user-policy-dialog/user-policy-dialog.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { UserCarouselComponent } from './components/users/user-carousel/user-car
     UserHomeComponent,
     UserProfileComponent,
     UserCarouselComponent,
+    UserPolicyDialogComponent,
   ],
   imports: [
     BrowserModule,
