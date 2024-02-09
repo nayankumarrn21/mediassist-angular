@@ -32,6 +32,7 @@ export class UserHomeComponent {
     'endingDate',
     'beneficiaries',
     'nominee',
+    'option',
   ];
   loggedInUser: User | null = null;
   userPolicyList: CdkTableDataSourceInput<TableDataSource> =

@@ -132,7 +132,7 @@ export class UserProfileComponent implements AfterViewInit {
         localStorage.setItem(this.loggenInUser?.username, this.imageUrl);
       }
       this.userService.updateUser(user);
-      this.snackBar.open('User Updated Successfully', '', {
+      this.snackBar.open('User updated Successfully', '', {
         duration: 3000,
       });
     }

@@ -48,9 +48,13 @@ export class HomeComponent {
       return user.policies && user.policies.some((policy) => policy.id == id);
     });
     if (policyExists) {
-      this.snackBar.open('Policy Exists with Users, Unable to delete it', '', {
-        duration: 3000,
-      });
+      this.snackBar.open(
+        'The policy exists among users, and Im unable to delete it.',
+        '',
+        {
+          duration: 3000,
+        }
+      );
     } else {
       this.store.dispatch(PolicyAction.deletePolicy({ id: id }));
       this.snackBar.open('Policy deleted successfully', '', {

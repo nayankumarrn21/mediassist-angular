@@ -24,12 +24,27 @@ export class MainPageComponent {
 
   loginTime = new Date();
 
+  profileObj = {
+    width: '40px',
+    height: '40px',
+    lineheight: '40px',
+    username: 'NN',
+    fontSize: '1.5rem',
+  };
+
   constructor(
     private router: Router,
     private userService: UsersService,
     private store: Store<AuthState>
   ) {
     this.loggedInUser = userService.getLoggedInUser();
+    this.profileObj = {
+      width: '40px',
+      height: '40px',
+      lineheight: '40px',
+      username: this.loggedInUser.username,
+      fontSize: '1.5rem',
+    };
   }
 
   ngOnInit() {

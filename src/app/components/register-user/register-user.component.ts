@@ -124,9 +124,13 @@ export class RegisterUserComponent implements AfterViewInit {
         role: 'user',
       };
       this.userService.addUser(user);
-      this.snackBar.open('User created successfully', '', {
-        duration: 3000,
-      });
+      this.snackBar.open(
+        'User created successfully. Please log in with the provided credentials.',
+        '',
+        {
+          duration: 3000,
+        }
+      );
       this.router.navigate(['/login']);
     }
   }

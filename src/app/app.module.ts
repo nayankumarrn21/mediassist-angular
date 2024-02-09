@@ -52,6 +52,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserCarouselComponent } from './components/users/user-carousel/user-carousel.component';
 import { UserPolicyDialogComponent } from './components/users/user-policy-dialog/user-policy-dialog.component';
+import { ProfileImageComponent } from './components/shared/profile-image/profile-image.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { UserPolicyDialogComponent } from './components/users/user-policy-dialog
     UserProfileComponent,
     UserCarouselComponent,
     UserPolicyDialogComponent,
+    ProfileImageComponent,
   ],
   imports: [
     BrowserModule,

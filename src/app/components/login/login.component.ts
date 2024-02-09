@@ -41,7 +41,7 @@ export class LoginComponent {
     } else if (this.currentUser && this.currentUser.role == 'user') {
       this.router.navigate(['/user/home']);
     } else {
-      this.snackBar.open('Credentials are wrong', '', {
+      this.snackBar.open('Please provide the correct credentials', '', {
         duration: 3000,
       });
     }
