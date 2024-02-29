@@ -20,11 +20,15 @@ export class UserFilterComponent {
   userSearchString = new EventEmitter<string | null>();
 
   constructor(private userService: UsersService) {
-    this.users = this.userService
-      .getUsers()
-      .filter((user) => user.role === 'user');
-    this.options = this.users.map((user) => user.fullName);
-    console.log('this.options', this.options);
+    // this.users = this.userService
+    //   .getUsers()
+    //   .filter((user) => user.role === 'user');
+    this.userService.getAllUsers().subscribe((users) => {
+      console.log(users);
+      this.users = users;
+      this.options = this.users.map((user) => user.fullName);
+      console.log('this.options', this.options);
+    });
   }
 
   ngOnInit() {

@@ -73,7 +73,6 @@ export class PolicyAddDialogComponent {
     console.log(this.multiSelectControl.value);
 
     let policy = {
-      id: this.policyList.length + 1 + '',
       title: this.formGroup.value.title,
       companyName: this.formGroup.value.companyName,
       beneficiariesList: this.multiSelectControl.value,
@@ -82,12 +81,24 @@ export class PolicyAddDialogComponent {
     };
     console.log(policy, this.formGroup.status);
     if (this.formGroup.status === 'VALID') {
-      //  this.policyService.createPolicy(policy);
-      this.store.dispatch(PolicyActions.addPolicy({ policy: policy }));
-      this.dialogRef.close();
-      this.snackBar.open('Policy added successfully', '', {
-        duration: 3000,
-      });
+      this.policyService.createPolicy(policy).subscribe(
+        (data) => {
+          this.dialogRef.close();
+          this.snackBar.open('Policy added successfully', '', {
+            duration: 3000,
+          });
+          this.store.dispatch(PolicyActions.getAllPolicies());
+          console.log(data);
+        },
+        (error) => {
+          this.dialogRef.close();
+          this.snackBar.open('Failed to add the Policy', '', {
+            duration: 3000,
+          });
+          console.log(error);
+        }
+      );
+      // this.store.dispatch(PolicyActions.addPolicy({ policy: policy }));
     }
   }
 }

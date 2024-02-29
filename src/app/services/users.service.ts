@@ -6,6 +6,8 @@ import * as AuthActions from '../store/auth/auth.actions';
 import { loggedInUser } from '../store/auth/auth.selector';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { UserPolicy } from '../interfaces/user-policy';
+import { HttpClient } from '@angular/common/http';
+import { Policy } from '../interfaces/policy';
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +15,8 @@ import { UserPolicy } from '../interfaces/user-policy';
 export class UsersService {
   usersList: Array<User> = [
     {
-      username: 'admin',
-      password: 'admin',
+      userName: 'nayan@gmail.com',
+      password: 'password',
       phNumber: 900000000,
       fullName: 'Administrator',
       dob: '2023-01-01',
@@ -23,7 +25,7 @@ export class UsersService {
       role: 'admin',
     },
     {
-      username: 'user',
+      userName: 'user',
       password: 'user',
       phNumber: 9888888888,
       fullName: 'User John',
@@ -42,7 +44,7 @@ export class UsersService {
       ],
     },
     {
-      username: 'ben@gmail.com',
+      userName: 'ben@gmail.com',
       password: 'ben',
       phNumber: 9888888888,
       fullName: 'Ben Smith',
@@ -64,7 +66,7 @@ export class UsersService {
 
   loggedUser: User | null = null;
 
-  constructor(private store: Store<AuthState>) {
+  constructor(private store: Store<AuthState>, private http: HttpClient) {
     const usersList = localStorage.getItem('users');
     if (!usersList) {
       localStorage.setItem('users', JSON.stringify(this.usersList));
@@ -98,18 +100,16 @@ export class UsersService {
     const usersJson = localStorage.getItem('users');
     if (usersJson) {
       const users: User[] = JSON.parse(usersJson);
-      return users.filter((user) => user.username === username)[0] || null;
+      return users.filter((user) => user.userName === username)[0] || null;
     }
     return null;
   }
 
   updateUser(user: User) {
-    const usersJson = localStorage.getItem('users');
-    if (usersJson) {
-      let users: User[] = JSON.parse(usersJson);
-      users = users.map((u) => (u.username === user.username ? user : u));
-      localStorage.setItem('users', JSON.stringify(users));
-      console.log(users);
+    if (user) {
+      this.http
+        .put(`users/${user.id}`, user)
+        .subscribe((data) => console.log(data));
     }
   }
 
@@ -126,7 +126,7 @@ export class UsersService {
     if (usersJson) {
       let users: User[] = JSON.parse(usersJson);
       users = users.map((u) => {
-        if (user && u.username === user.username) {
+        if (user && u.userName === user.userName) {
           if (u.policies) {
             u.policies.push(userPolicy);
           } else {
@@ -142,5 +142,25 @@ export class UsersService {
     } else {
       return 'Failed to Buy the Policy';
     }
+  }
+
+  login(username: string, password: string): Observable<any> {
+    return this.http.post<any>(`login`, { username, password });
+  }
+
+  register(user: User) {
+    return this.http.post<any>(`register`, user);
+  }
+  getAllUsers() {
+    return this.http.get<User[]>('users/list');
+  }
+
+  addUserPolicy(userPolicy: UserPolicy, user?: User, policy?: Policy) {
+    let userPolicyDB = {
+      userPolicyDetails: userPolicy,
+      policyId: policy?.id,
+      userId: user?.id,
+    };
+    return this.http.post<any>('user-policy', userPolicyDB);
   }
 }

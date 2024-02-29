@@ -6,7 +6,14 @@ export const addPolicy = createAction(
   props<{ policy: Policy }>()
 );
 
+export const savePolicy = createAction(
+  '[Policy] add',
+  props<{ policies: Policy[] }>()
+);
+
 export const deletePolicy = createAction(
   '[Policy] delete',
   props<{ id: String }>()
 );
+
+export const getAllPolicies = createAction('[Policy] getAll');

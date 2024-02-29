@@ -63,7 +63,7 @@ export class RegisterUserComponent implements AfterViewInit {
     private deactiaverService: DeactivateFormService
   ) {
     this.formGroup = new FormGroup({
-      username: new FormControl('', Validators.required),
+      userName: new FormControl('', Validators.required),
       phNumber: new FormControl('', Validators.required),
       fullName: new FormControl('', Validators.required),
       dob: new FormControl('', Validators.required),
@@ -103,7 +103,11 @@ export class RegisterUserComponent implements AfterViewInit {
   }
 
   addUser() {
-    console.log('Inside the Add User Method');
+    console.log(
+      'Inside the Add User Method',
+      new Date(this.formGroup.value.dob).toISOString().slice(0, 10)
+    );
+
     if (
       this.formGroup.status === 'VALID' &&
       this.formGroup.value.password != this.formGroup.value.confirmPassword
@@ -114,24 +118,30 @@ export class RegisterUserComponent implements AfterViewInit {
       return;
     } else if (this.formGroup.status === 'VALID') {
       const user: User = {
-        username: this.formGroup.value.username,
+        userName: this.formGroup.value.userName,
         phNumber: this.formGroup.value.phNumber,
         fullName: this.formGroup.value.fullName,
-        dob: this.formGroup.value.dob,
+        dob: new Date(this.formGroup.value.dob).toISOString().slice(0, 10),
         gender: this.formGroup.value.gender,
         workType: this.formGroup.value.workType,
         password: this.formGroup.value.password,
         role: 'user',
       };
-      this.userService.addUser(user);
-      this.snackBar.open(
-        'User created successfully. Please log in with the provided credentials.',
-        '',
-        {
-          duration: 3000,
+      this.userService.register(user).subscribe(
+        (response) => {
+          this.snackBar.open(
+            'User created successfully. Please log in with the provided credentials.',
+            '',
+            {
+              duration: 3000,
+            }
+          );
+          this.router.navigate(['/login']);
+        },
+        (error) => {
+          console.error(error);
         }
       );
-      this.router.navigate(['/login']);
     }
   }
 

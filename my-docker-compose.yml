@@ -1,0 +1,10 @@
+version: "1"
+services:
+  backend:
+    image: medibackend
+    ports:
+      - 9090:9090
+  frontend:
+    image: mediapp:v10
+    ports:
+      - 8080:80

@@ -53,6 +53,8 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserCarouselComponent } from './components/users/user-carousel/user-carousel.component';
 import { UserPolicyDialogComponent } from './components/users/user-policy-dialog/user-policy-dialog.component';
 import { ProfileImageComponent } from './components/shared/profile-image/profile-image.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './services/auth.interceptor.service';
 
 @NgModule({
   declarations: [
@@ -106,8 +108,11 @@ import { ProfileImageComponent } from './components/shared/profile-image/profile
       maxAge: 25,
     }),
     NgbModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

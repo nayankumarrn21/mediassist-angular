@@ -12,6 +12,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CdkTableDataSourceInput } from '@angular/cdk/table';
 import { UserPolicyDialogComponent } from '../user-policy-dialog/user-policy-dialog.component';
 import { UsersService } from '../../../services/users.service';
+import * as PolicyAction from '../../../store/policy/policy.actions';
+import { PoliciesService } from '../../../services/policies.service';
 
 export interface TableDataSource {
   userPolicy: UserPolicy;
@@ -41,27 +43,17 @@ export class UserHomeComponent {
   constructor(
     store: Store<Policy | User>,
     public dialog: MatDialog,
-    userService: UsersService
+    private userService: UsersService,
+    private policyService: PoliciesService
   ) {
-    store.select(policyListSelector).subscribe((policyList) => {
-      this.policyList = policyList;
-    });
     store.select(loggedInUser).subscribe((user) => {
       this.loggedInUser = user;
-      console.log('Logged In User is', this.loggedInUser);
-      const policyList: TableDataSource[] = [];
-      if (user && user.policies) {
-        user.policies.forEach((ele) => {
-          const table = {
-            userPolicy: ele,
-            policy: this.policyList.filter((p) => p.id == ele.id)[0],
-          };
-          policyList.push(table);
-        });
-        this.userPolicyList = new MatTableDataSource<TableDataSource>(
-          policyList
-        );
-      }
+      this.getUsersPolicyList();
+    });
+    store.dispatch(PolicyAction.getAllPolicies());
+
+    store.select(policyListSelector).subscribe((policyList) => {
+      this.policyList = policyList;
     });
   }
 
@@ -90,6 +82,20 @@ export class UserHomeComponent {
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
+      if (result) {
+        this.getUsersPolicyList();
+      }
     });
+  }
+
+  getUsersPolicyList() {
+    this.policyService
+      .getUsersPoliciesFromDb(this.loggedInUser?.id)
+      .subscribe((data) => {
+        const policyList: TableDataSource[] = data;
+        this.userPolicyList = new MatTableDataSource<TableDataSource>(
+          policyList
+        );
+      });
   }
 }

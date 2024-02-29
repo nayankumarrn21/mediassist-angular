@@ -71,7 +71,7 @@ export class UserProfileComponent implements AfterViewInit {
     });
     this.formGroup = new FormGroup({
       username: new FormControl(
-        this.loggenInUser?.username,
+        this.loggenInUser?.userName,
         Validators.required
       ),
       phNumber: new FormControl(
@@ -93,15 +93,15 @@ export class UserProfileComponent implements AfterViewInit {
       confirmPassword: new FormControl(''),
     });
     if (this.loggenInUser) {
-      this.imageUrl = localStorage.getItem(this.loggenInUser.username)
-        ? localStorage.getItem(this.loggenInUser.username)
+      this.imageUrl = localStorage.getItem(this.loggenInUser.userName)
+        ? localStorage.getItem(this.loggenInUser.userName)
         : null;
     }
   }
 
   ngAfterViewInit() {
     this.profilePlaceHolder.nativeElement.innerText =
-      this.loggenInUser?.username.substring(0, 2).toUpperCase() || '';
+      this.loggenInUser?.userName.substring(0, 2).toUpperCase() || '';
   }
 
   formSubmit() {
@@ -117,19 +117,19 @@ export class UserProfileComponent implements AfterViewInit {
       return;
     } else if (this.formGroup.status === 'VALID') {
       const user: User = {
-        username: this.formGroup.value.username,
+        id: this.loggenInUser?.id,
+        userName: this.formGroup.value.username,
         phNumber: this.formGroup.value.phNumber,
         fullName: this.formGroup.value.fullName,
         dob: this.formGroup.value.dob,
         gender: this.formGroup.value.gender,
         workType: this.formGroup.value.workType,
         password: this.formGroup.value.password || this.loggenInUser?.password,
-        policies: this.loggenInUser?.policies,
         role: this.loggenInUser?.role,
       };
       console.log(user);
       if (this.loggenInUser && this.imageUrl) {
-        localStorage.setItem(this.loggenInUser?.username, this.imageUrl);
+        localStorage.setItem(this.loggenInUser?.userName, this.imageUrl);
       }
       this.userService.updateUser(user);
       this.snackBar.open('User updated Successfully', '', {

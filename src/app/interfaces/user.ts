@@ -1,7 +1,7 @@
 import { UserPolicy } from './user-policy';
 
 export interface User {
-  username: string;
+  userName: string;
   password: string;
   phNumber: number;
   fullName: string;
@@ -11,4 +11,6 @@ export interface User {
   policies?: UserPolicy[];
   role?: String;
   profilePath?: string;
+  token?: string;
+  id?: Number;
 }

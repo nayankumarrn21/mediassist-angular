@@ -31,6 +31,8 @@ export class HomeComponent {
       .select(policyListSelector)
       .subscribe((data) => (this.policyList = data));
     this.userList = this.userService.getUsers();
+
+    this.store.dispatch(PolicyAction.getAllPolicies());
   }
 
   addPolicy(): void {

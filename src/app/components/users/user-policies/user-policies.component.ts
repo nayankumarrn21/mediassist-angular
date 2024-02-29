@@ -27,7 +27,7 @@ export class UserPoliciesComponent {
     'options',
   ];
   ngOnInit() {
-    this.dataSource.data = this.user.policies || [];
+    this.getUsersPolicyList();
   }
   constructor(
     public dialog: MatDialog,
@@ -35,12 +35,21 @@ export class UserPoliciesComponent {
   ) {}
 
   openPolicyDialog(id: string): void {
-    console.log('open policy dialog', id);
+    const userPolicy = this.dataSource.data.filter((data) => id == data.id)[0];
+    console.log('open policy dialog', id, userPolicy);
     const dialogRef = this.dialog.open(PolicyDialogComponent, {
-      data: this.policyService.getPolicyData(id),
+      data: userPolicy.policy,
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  getUsersPolicyList() {
+    this.policyService
+      .getUsersPoliciesFromDb(this.user?.id)
+      .subscribe((data) => {
+        this.dataSource.data = data;
+      });
   }
 }

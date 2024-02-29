@@ -23,15 +23,15 @@ export class UsercardComponent implements AfterViewInit {
 
   constructor() {}
   ngAfterViewInit() {
-    this.profilePlaceHolder.nativeElement.innerText = this.user.username
+    this.profilePlaceHolder.nativeElement.innerText = this.user.userName
       .substring(0, 2)
       .toUpperCase();
   }
 
   ngOnInit() {
     console.log('Usercard', this.user);
-    if (this.user && localStorage.getItem(this.user.username)) {
-      this.randomImage = localStorage.getItem(this.user.username);
+    if (this.user && localStorage.getItem(this.user.userName)) {
+      this.randomImage = localStorage.getItem(this.user.userName);
     }
   }
 

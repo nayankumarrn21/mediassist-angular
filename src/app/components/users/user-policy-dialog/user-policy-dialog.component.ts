@@ -57,14 +57,30 @@ export class UserPolicyDialogComponent {
         return;
       }
 
-      let response = this.userService.updateUserPolicy(
-        userPolicy,
-        this.loggedInUser
-      );
-      this.snackBar.open(response, '', {
-        duration: 3000,
-      });
-      this.dialogRef.close();
+      this.userService
+        .addUserPolicy(userPolicy, this.loggedInUser, this.policy)
+        .subscribe(
+          (userPolicy) => {
+            console.log(userPolicy);
+            this.snackBar.open('Policy Bought Successfully', '', {
+              duration: 3000,
+            });
+            this.dialogRef.close('Policy Bought Successfull');
+          },
+          (error) => {
+            this.dialogRef.close();
+            console.error(error);
+          }
+        );
+
+      // let response = this.userService.updateUserPolicy(
+      //   userPolicy,
+      //   this.loggedInUser
+      // );
+      // this.snackBar.open(response, '', {
+      //   duration: 3000,
+      // });
+      // this.dialogRef.close();
     }
   }
 }

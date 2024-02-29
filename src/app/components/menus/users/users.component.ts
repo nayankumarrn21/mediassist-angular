@@ -8,23 +8,27 @@ import { User } from '../../../interfaces/user';
   styleUrl: './users.component.css',
 })
 export class UsersComponent {
-  public users: User[];
+  users: User[] = [];
+  originalUsers: User[] = [];
   constructor(private userService: UsersService) {
-    this.users = this.userService
-      .getUsers()
-      .filter((user) => user.role === 'user');
+    this.getAllUsers();
+  }
+
+  getAllUsers() {
+    this.userService.getAllUsers().subscribe((users) => {
+      console.log(users);
+      this.users = users;
+      this.originalUsers = users;
+    });
   }
 
   filterdUser(value: any) {
     console.log('filter User', value);
-    this.users = this.userService
-      .getUsers()
-      .filter(
-        (user) =>
-          (user.fullName.toLowerCase().includes(value.toLowerCase()) ||
-            user.username.toLowerCase().includes(value.toLowerCase())) &&
-          user.role === 'user'
-      );
+    this.users = this.originalUsers.filter(
+      (user) =>
+        user.fullName.toLowerCase().includes(value.toLowerCase()) ||
+        user.userName.toLowerCase().includes(value.toLowerCase())
+    );
     console.log(this.users);
   }
 }
